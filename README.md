@@ -26,7 +26,7 @@ Can not write to /var/jenkins_home/copy_reference_file.log. Wrong volume permiss
 「chown -R 1000 /var/jenkins_home」
 を実行して、フォルダに対する権限を付与する。
 
-#jenkinsにおけるビルド方法
+# jenkinsにおけるビルド方法
 
 ・新規ジョブの作成
 
