@@ -1,0 +1,37 @@
+version: '3'
+services:
+  api:
+    build: python #ビルド対象：pythonディレクトリを指定
+    container_name: api_server #コンテナ名
+    ports:
+      - "5050:5050" #外部ポート:内部ポート
+    tty: yes
+    environment:
+      TZ: Asia/Tokyo
+      FLASK_APP: app.py
+    depends_on:
+      # apiサーバーはdbサーバーが立ってから起動
+      - db
+    networks:
+      # apiとdbを接続するための共通ネットワーク指定
+      - app_net
+    # command: flask run --host 0.0.0.0 --port 5000
+  db:
+    build: mysql #ビルド対象：mysqlディレクトリを指定
+    container_name: db_server
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: pass
+      MYSQL_DATABASE: testdb
+      TZ: Asia/Tokyo
+    volumes:
+      - ./db-data:/var/lib/mysql
+    command: mysqld
+    networks:
+      - app_net
+volumes:
+  db-data:
+networks:
+  app_net:
+    driver: bridge #dbサーバとapiサーバを同一ネットワークと定義
