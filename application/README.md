@@ -2,7 +2,7 @@
 今回のアプリは、サーバを二つ起動します。\
 一つ目はStreamlit、もう一つはFastapiによるものです。\
 まず、Fastapiを起動した後に、Streamlitを起動させる必要があります。\
-・app.pyがあるところにcdで移動。その後、以下の二つの操作を行う。\
+・app.pyがあるところにcdで移動。その後、以下の二つの操作を行います。\
 ＊Fastapiの起動方法\
 ターミナル上で[uvicorn sql_app.main:app --reload]を実行してください。\
 ＊Streamlitの起動方法\
