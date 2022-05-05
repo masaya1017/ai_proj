@@ -12,7 +12,7 @@
 デプロイ済みのapp.pyと同じ階層にsql_app.dbがあります。\
 そこにはデータが入っているので初期状態でアプリを動かしたいときは、削除したのちにサーバを起動してください。
 
-## サーバを動かす方法
+## サーバの実行環境
 ・pip install fastapi[all]　を実行\
 ・pip install streamlit　を実行\
 ・sqliteのインストール（現段階では、windows環境を使用）
