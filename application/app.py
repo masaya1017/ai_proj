@@ -4,9 +4,9 @@ import requests
 import json
 import datetime
 import pandas as pd
-
+# streamlitにおけるサイドバー機能を持つ。ユーザを指定して、切り替えることができる。
 page = st.sidebar.selectbox('ユーザを指定してください', ['users', 'rooms', 'bookings'])
-
+# usersを選択したとき、以下の処理を行う。
 if page == 'users':
     st.title(('ユーザ登録画面'))
     # フォームの作成
