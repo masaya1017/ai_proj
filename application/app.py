@@ -16,7 +16,7 @@ if page == 'users':
         # 入力できる最大文字数は12文字とする。
         username: str = st.text_input('ユーザー名', max_chars=12)
         # json形式で取得したデータを変数に保存する。
-        # jsonの構造はkeyとvalue形式とする。
+        # jsonの構造はkeyとvalue形式とする。今回は、usernameをFastAPIサーバに送信する。
         user_data = {
             # 'user_id': user_id,
             'username': username
@@ -28,12 +28,16 @@ if page == 'users':
     if submit_button:
         # urlを指定して、先ほどの送信データをPOSTする。
         url_user = 'http://127.0.0.1:8000/users'
+        #requestsのPostメソッドでは、URLを指定し、jsonファイルを変換し、送信する。
         user_res = requests.post(
             url_user,
             data=json.dumps(user_data)
         )
+        #ステータスコード=200のときは、問題なく、fastapiサーバにデータを送信し、登録できている。
+        #ステータスコードとは、FastAPIサーバより返ってくるメッセージコードみたいなものである。
         if user_res.status_code == 200:
             st.success('ユーザ登録完了')
+        #とりあえず、FastAPIより返ってくるデータ（ステータスコードとJSON）を確認できるようにしておく。
         st.write(user_res.status_code)
         st.json(user_res.json())
 
@@ -190,12 +194,15 @@ if page == 'bookings':
                 minute=end_time.minute
             ).isoformat()
         }
+        # validation機能を追加
         # 定員より大きい予約人数の場合
         if booked_num > capacity:
             st.error(
                 f'{room_name}の定員は、{capacity}名です。{capacity}名以下の予約人数のみを受付けております。')
+        # 開始時間は終了時間よりも早いはずである。
         elif start_time >= end_time:
             st.error('開始時刻が終了時刻を超えています。')
+        # 開始時間と終了時間が9～20時の間にあるかを確認している。
         elif start_time < datetime.time(hour=9, minute=0, second=0) or \
                 end_time > datetime.time(hour=20, minute=0, second=0):
             st.error('利用時間は9時から20時になります')
